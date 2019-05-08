@@ -1,0 +1,5 @@
+2019-05-08 17:30:50,291 [INFO] from play.api.libs.concurrent.ActorSystemProvider in pool-4-thread-2 - Starting application default Akka system: application
+2019-05-08 17:30:50,410 [INFO] from play.core.server.NettyServer in pool-4-thread-2 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+2019-05-08 17:30:56,281 [WARN] from application in ForkJoinPool-1-worker-1 - Logger configuration in conf files is deprecated and has no effect. Use a logback configuration file instead.
+2019-05-08 17:30:58,319 [INFO] from play.api.libs.concurrent.ActorSystemProvider in ForkJoinPool-1-worker-1 - Starting application default Akka system: application
+2019-05-08 17:30:58,427 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)
