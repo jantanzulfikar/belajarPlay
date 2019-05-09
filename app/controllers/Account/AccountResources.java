@@ -76,7 +76,6 @@ public class AccountResources {
             Gson gson = new Gson();
 
             statmeStatement.close();
-            connectionModel.disconnect();
             return Results.ok(gson.toJson(resultObject));
 
 
