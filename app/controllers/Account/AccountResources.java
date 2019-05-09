@@ -69,6 +69,7 @@ public class AccountResources {
             Statement statmeStatement = connectionModel.getConnection().createStatement();
             ResultSet result = statmeStatement.executeQuery(sql);
             Map<String , String > resultObject = new HashMap<>();
+            System.out.println("name : " + result.getString("name"));
             resultObject.put("Name" , result.getString("name"));
             resultObject.put("phone" , result.getString("phone"));
             resultObject.put("email" , result.getString("email"));
