@@ -27,6 +27,7 @@ public class AccountResources {
         String query = "insert into m_sales values (name , phone , email) values ( '"+name+"' , '" +phone+ "' , '"+ email +"' )";
         System.out.println("Query : " + query);
         try {
+            System.out.println("Check : " + connectionModel.getConnection());
             Statement startStatment = connectionModel.getConnection().createStatement();
             startStatment.execute(query);
 
