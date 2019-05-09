@@ -1,19 +1,32 @@
 package controllers.Account;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.collect.Maps;
+import com.google.gson.Gson;
 import connect.connection;
 import connect.connectionModel;
+import model.sales;
+import play.api.libs.json.Json;
 import play.mvc.BodyParser;
 import play.mvc.Result;
 import play.mvc.Results;
 import scala.util.parsing.json.JSONObject$;
 
+import javax.inject.Inject;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import play.api.libs.json.jackson.*;
 
 import static play.mvc.Controller.request;
 
+
 public class AccountResources {
+
+    @Inject
+    private sales sales;
 
 
     @connection(pgsql = "org.postgresql.Driver")
@@ -30,9 +43,12 @@ public class AccountResources {
             System.out.println("Check : " + connectionModel.getConnection());
             Statement startStatment = connectionModel.getConnection().createStatement();
             startStatment.execute(query);
+            startStatment.close();
+            connectionModel.disconnect();
 
         }catch (Exception e) {
             e.printStackTrace();
+            connectionModel.disconnect();
             return Results.internalServerError("01 , Failed" );
         }
 
@@ -40,27 +56,58 @@ public class AccountResources {
 
     }
 
+
+    private model.sales getSalesData (String phone) {
+        try {
+
+            String sql = "select name , phone , email  from m_sales where phone = '" + phone + "'";
+            System.out.println("SQL : " + sql);
+            Statement statmeStatement = connectionModel.getConnection().createStatement();
+            ResultSet result = statmeStatement.executeQuery(sql);
+//            model.sales.name = result.getString("name");
+//            model.sales.email = result.getString("email");
+            sales sales = new sales();
+            sales.setName(result.getString("name"));
+            sales.setPhone(result.getString("phone"));
+            sales.setEmail(result.getString("email"));
+
+            return sales;
+
+        }catch (Exception e ) {
+            connectionModel.disconnect();
+            e.printStackTrace();
+            return sales;
+        }
+    }
+
+
     //GET
-    public static Result getAll(String name) {
-
-        System.out.println("ASD");
-        System.out.println("ASD");
-
+    public static Result getAll(String phone) {
 
         try {
-            System.out.println("INCOMING NAME : " + name);
-            if (name.equals("DIKI")) {
-                return Results.ok("TAMPAN BGT 1");
-            } else {
-                return Results.ok("JELEK LU " + name);
-            }
+
+            System.out.println("incoming Phone : " + phone);
+            String sql = "select name , phone , email  from m_sales where phone = '" + phone + "'";
+            System.out.println("SQL : " + sql);
+            Statement statmeStatement = connectionModel.getConnection().createStatement();
+            ResultSet result = statmeStatement.executeQuery(sql);
+            Map<String , String > resultObject = new HashMap<>();
+            resultObject.put("Name" , result.getString("name"));
+            resultObject.put("phone" , result.getString("phone"));
+            resultObject.put("email" , result.getString("email"));
+            Gson gson = new Gson();
+            return Results.ok(gson.toJson(resultObject));
+
 
         }catch (Exception e) {
+            connectionModel.disconnect();
+            e.printStackTrace();
             return Results.internalServerError("ERORR CUY");
         }
 
 
     }
+
 
 
 
