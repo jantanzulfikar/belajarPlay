@@ -16,7 +16,7 @@ import static play.mvc.Controller.request;
 public class AccountResources {
 
 
-    @connection
+    @connection(pgsql = "org.postgresql.Driver")
     @BodyParser.Of(value = BodyParser.Json.class , maxLength = 100000)
     public static Result checkAccount() {
 

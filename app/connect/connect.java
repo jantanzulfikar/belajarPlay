@@ -5,7 +5,7 @@ import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
 
-import java.sql.*;
+import java.sql.DriverManager;
 
 public class connect extends Action<connection> {
     @Override
@@ -20,6 +20,8 @@ public class connect extends Action<connection> {
             String schema = con.schema();
             String username = con.username();
             String password = con.password();
+
+            System.out.println("drive : " + pgsql + "\thost : " + host);
 
             String jdbcString = "jdbc:postgresql://" + host +":" + port + "/" + dbname + "?currentSchema=" + schema
                     + "&user=" + username + "&password=" + password + "&ssl=true&sslmode=require";
