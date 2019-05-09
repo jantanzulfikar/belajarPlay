@@ -24,7 +24,7 @@ public class AccountResources {
         String name = requestBody.path("name").asText();
         String phone = requestBody.path("phone").asText();
         String email = requestBody.path("email").asText();
-        String query = "insert into m_sales values (name , phone , email) values ( "+name+" , " +phone+ " , "+ email +" )";
+        String query = "insert into m_sales values (name , phone , email) values ( '"+name+"' , '" +phone+ "' , '"+ email +"' )";
         System.out.println("Query : " + query);
         try {
             Statement startStatment = connectionModel.getConnection().createStatement();
@@ -34,9 +34,6 @@ public class AccountResources {
             e.printStackTrace();
             return Results.internalServerError("01 , Failed" );
         }
-
-
-
 
         return Results.ok("00 ," + name);
 
