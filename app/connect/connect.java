@@ -9,8 +9,8 @@ import java.sql.*;
 
 public class connect extends Action<connection> {
     @Override
-    public F.Promise<Result> call(Http.Context ctx) throws Throwable {
-
+    public F.Promise<Result> call(Http.Context ctx)  {
+        System.out.println("minta tolong");
         try {
             connection con = configuration;
             String pgsql = con.pgsql();
@@ -32,7 +32,7 @@ public class connect extends Action<connection> {
             return delegate.call(ctx);
 
 
-        }catch (Exception e) {
+        }catch (Throwable e) {
             e.printStackTrace();
             return F.Promise.promise(()-> status(200 , "FAIL TO CONNECT DB"));
         }
