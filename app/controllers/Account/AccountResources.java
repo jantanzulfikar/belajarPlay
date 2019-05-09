@@ -24,7 +24,7 @@ public class AccountResources {
         String name = requestBody.path("name").asText();
         String phone = requestBody.path("phone").asText();
         String email = requestBody.path("email").asText();
-        String query = "insert into m_sales values (name , phone , email) values ( '"+name+"' , '" +phone+ "' , '"+ email +"' )";
+        String query = "insert into m_sales (name , phone , email) values ( '"+name+"' , '" +phone+ "' , '"+ email +"' )";
         System.out.println("Query : " + query);
         try {
             System.out.println("Check : " + connectionModel.getConnection());
