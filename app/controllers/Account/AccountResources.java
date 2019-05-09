@@ -25,8 +25,6 @@ import static play.mvc.Controller.request;
 
 public class AccountResources {
 
-    @Inject
-    private sales sales;
 
 
     @connection(pgsql = "org.postgresql.Driver")
@@ -57,28 +55,7 @@ public class AccountResources {
     }
 
 
-    private model.sales getSalesData (String phone) {
-        try {
-
-            String sql = "select name , phone , email  from m_sales where phone = '" + phone + "'";
-            System.out.println("SQL : " + sql);
-            Statement statmeStatement = connectionModel.getConnection().createStatement();
-            ResultSet result = statmeStatement.executeQuery(sql);
-//            model.sales.name = result.getString("name");
-//            model.sales.email = result.getString("email");
-            sales sales = new sales();
-            sales.setName(result.getString("name"));
-            sales.setPhone(result.getString("phone"));
-            sales.setEmail(result.getString("email"));
-
-            return sales;
-
-        }catch (Exception e ) {
-            connectionModel.disconnect();
-            e.printStackTrace();
-            return sales;
-        }
-    }
+  
 
 
     //GET
