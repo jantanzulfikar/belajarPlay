@@ -5,7 +5,6 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import connect.connection;
 import connect.connectionModel;
-import model.sales;
 import play.api.libs.json.Json;
 import play.mvc.BodyParser;
 import play.mvc.Result;
@@ -55,7 +54,7 @@ public class AccountResources {
     }
 
 
-  
+
 
 
     //GET
