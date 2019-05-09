@@ -24,6 +24,9 @@ public class AccountResources {
     //GET
     public static Result getAll(String name) {
 
+        System.out.println("ASD");
+        System.out.println("ASD");
+
         try {
             System.out.println("INCOMING NAME : " + name);
             if (name.equals("DIKI")) {
