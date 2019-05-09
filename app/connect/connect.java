@@ -25,7 +25,9 @@ public class connect extends Action<connection> {
                     + "&user=" + username + "&password=" + password + "&ssl=true&sslmode=require";
 
             Class.forName(pgsql);
+
             connectionModel.setConnection(DriverManager.getConnection(jdbcString));
+            System.out.println("tolong : " + DriverManager.getConnection(jdbcString));
             ctx.args.put("connect" ,  connectionModel.getConnection());
             return delegate.call(ctx);
 
