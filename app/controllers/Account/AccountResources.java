@@ -30,7 +30,7 @@ public class AccountResources {
         try {
             System.out.println("INCOMING NAME : " + name);
             if (name.equals("DIKI")) {
-                return Results.ok("TAMPAN BGT");
+                return Results.ok("TAMPAN BGT 1");
             } else {
                 return Results.ok("JELEK LU " + name);
             }
