@@ -48,8 +48,12 @@ public class AccountResources {
             connectionModel.disconnect();
             return Results.internalServerError("01 , Failed" );
         }
-
-        return Results.ok("00 ," + name);
+        Gson gson = new Gson();
+        Map<String , String > results = new HashMap<>();
+        results.put("name" , name);
+        results.put("phone" , phone);
+        results.put("email" , email);
+        return Results.ok(gson.toJson(results));
 
     }
 
