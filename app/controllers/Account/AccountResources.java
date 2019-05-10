@@ -96,6 +96,55 @@ public class AccountResources {
     }
 
 
+    @connection(pgsql = "org.postgresql.Driver")
+    @BodyParser.Of(value = BodyParser.Json.class , maxLength = 100000)
+    public static Result updateSales() {
+        Gson gson = new Gson();
+        try {
+
+            System.out.println("Incoming Data");
+            JsonNode data = request().body().asJson();
+            System.out.println("name : " + data.path("name").asText());
+            System.out.println("phone : " + data.path("phone").asText());
+            System.out.println("email : " + data.path("email").asText());
+            String salesPhone = "";
+            String name = data.path("name").asText();
+            String phone = data.path("phone").asText();
+            String email = data.path("email").asText();
+
+            String sql = "select name , phone , email  from m_sales where phone = '" + phone + "'";
+            System.out.println("SQL : " + sql);
+            Statement statmeStatement = connectionModel.getConnection().createStatement();
+            ResultSet result = statmeStatement.executeQuery(sql);
+            Map<String, String> resultObject = new HashMap<>();
+            if (result.next()) {
+                salesPhone = result.getString("phone");
+            }
+
+            if (salesPhone.isEmpty()) {
+                sql = "update m_sales set name = '"+ name +"', email ='"+email+"' where phone = '" + phone + "'";
+                Statement startStatment = connectionModel.getConnection().createStatement();
+                startStatment.execute(sql);
+                startStatment.close();
+                connectionModel.disconnect();
+
+                resultObject.put("name", name);
+                resultObject.put("email" , email);
+                return Results.ok(gson.toJson(resultObject));
+
+            } else {
+                return Results.internalServerError("02 , data not found");
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            return Results.internalServerError("02");
+        }
+
+    }
+
+
+
 
 
 }

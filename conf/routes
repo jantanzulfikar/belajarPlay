@@ -8,7 +8,9 @@ GET     /                           controllers.Application.index
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-POST /account/checkAccount  controllers.Account.AccountResources.checkAccount()
-GET /account/getAll/:name   controllers.Account.AccountResources.getAll(name : String )
+POST /account/checkAccount   controllers.Account.AccountResources.checkAccount()
+GET /account/getAll/:phone   controllers.Account.AccountResources.getAll(phone : String )
+POST /account/updateSales    controllers.Account.AccountResources.updateSales()
+
 
     
