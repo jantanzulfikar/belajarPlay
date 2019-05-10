@@ -120,8 +120,10 @@ public class AccountResources {
             if (result.next()) {
                 salesPhone = result.getString("phone");
             }
-
+            System.out.println("Check Data : " + salesPhone);
             if (salesPhone.isEmpty()) {
+                return Results.internalServerError("02 , data not found");
+            } else {
                 sql = "update m_sales set name = '"+ name +"', email ='"+email+"' where phone = '" + phone + "'";
                 Statement startStatment = connectionModel.getConnection().createStatement();
                 startStatment.execute(sql);
@@ -132,8 +134,6 @@ public class AccountResources {
                 resultObject.put("email" , email);
                 return Results.ok(gson.toJson(resultObject));
 
-            } else {
-                return Results.internalServerError("02 , data not found");
             }
 
         }catch (Exception e) {
