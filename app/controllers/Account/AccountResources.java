@@ -62,6 +62,7 @@ public class AccountResources {
 
 
     //GET
+    @connection(pgsql = "org.postgresql.Driver")
     public static Result getAll(String phone) {
 
         try {
@@ -84,7 +85,7 @@ public class AccountResources {
 
 
         }catch (Exception e) {
-            //connectionModel.disconnect();
+            connectionModel.disconnect();
             e.printStackTrace();
             return Results.internalServerError("ERORR CUY");
         }
