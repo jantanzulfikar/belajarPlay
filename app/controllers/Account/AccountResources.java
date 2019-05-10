@@ -78,8 +78,8 @@ public class AccountResources {
             resultObject.put("phone" , result.getString("phone"));
             resultObject.put("email" , result.getString("email"));
             Gson gson = new Gson();
-
             statmeStatement.close();
+            connectionModel.disconnect();
             return Results.ok(gson.toJson(resultObject));
 
 
